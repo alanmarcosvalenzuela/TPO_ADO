@@ -7,11 +7,12 @@ public class Habitacion {
     private TipoHabitacion tipoHabitacion;
     private boolean estaHabilitada;
 
-    public Habitacion(String idHabitacion, Integer nroHabitacion, Integer capacidad, TipoHabitacion tipoHabitacion) {
+    public Habitacion(String idHabitacion, Integer nroHabitacion, Integer capacidad, TipoHabitacion tipoHabitacion, boolean estaHabilitada) {
         this.idHabitacion = idHabitacion;
         this.nroHabitacion = nroHabitacion;
         this.capacidad = capacidad;
         this.tipoHabitacion = tipoHabitacion;
+        this.estaHabilitada = estaHabilitada;
     }
 
     public String getIdHabitacion() {

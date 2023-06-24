@@ -1,30 +1,39 @@
 package Modelos;
 
 public class Suite extends TipoHabitacion {
+    public static Suite instanciaSuite;
+    public String descripcion = "Suite";
+    private float precioSuite = 70.f;
 
-    private Float precio;
-    private Integer numeroHabitacion;
-
-    public Suite(Float precioPorDia, String idHabitacion, String capacidad, Integer numeroHabitacion) {
-        super(precioPorDia, idHabitacion, capacidad);
-        this.numeroHabitacion = numeroHabitacion;
-        this.precio = 0.0f; // Precio inicializado a 0 por defecto
+    private Suite(float precioPorDia) {
+        super(precioPorDia);
     }
 
-    public Integer getNumeroHabitacion() {
-        return numeroHabitacion;
+    // Patrón Singleton
+    public static Suite getInstancia() {
+        if (instanciaSuite == null) {
+            instanciaSuite = new Suite(100.0f);
+        }
+        return instanciaSuite;
     }
 
-    public void setNumeroHabitacion(Integer numeroHabitacion) {
-        this.numeroHabitacion = numeroHabitacion;
+    public void setPrecio(Float precioSuite) {
+        this.precioSuite = precioSuite;
     }
 
-    public void setPrecio(Float precio) {
-        this.precio = precio;
+
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Override
     public float getPrecio() {
-        return 0;
+        return precioSuite;
+    }
+
+    @Override
+    public String getDescripcion() {
+        return descripcion;
     }
 }

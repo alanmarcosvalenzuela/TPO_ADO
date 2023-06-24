@@ -1,19 +1,38 @@
 package Modelos;
 
 public class Comun extends TipoHabitacion{
-    private float precio;
+    public static Comun instanciaComun;
+    public String descripcion = "Común";
+    private float precioComun = 30.f;
 
-    public Comun(float precioPorDia, String idHabitacion, String capacidad) {
-        super(precioPorDia, idHabitacion, capacidad);
-        this.precio = 0.0f; // Precio inicializado a 0 por defecto
+
+     private Comun(float precioPorDia) {
+        super(precioPorDia);
     }
 
-    public void setPrecio(float precio) {
-        this.precio = precio;
+    // Patrón Singleton
+    public static Comun getInstancia() {
+        if (instanciaComun == null) {
+            instanciaComun = new Comun(100.0f);
+        }
+        return instanciaComun;
+    }
+
+    public void precioComun(float precioComun) {
+        this.precioComun = precioComun;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Override
     public float getPrecio() {
-        return precio;
+        return precioComun;
+    }
+
+    @Override
+    public String getDescripcion() {
+        return descripcion;
     }
 }

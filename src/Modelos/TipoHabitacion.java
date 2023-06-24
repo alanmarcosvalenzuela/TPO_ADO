@@ -2,13 +2,9 @@ package Modelos;
 
 public abstract class TipoHabitacion {
     private Float precioPorDia;
-    private String idHabitacion;
-    private String capacidad;
 
-    public TipoHabitacion(Float precioPorDia, String idHabitacion, String capacidad) {
+    public TipoHabitacion(Float precioPorDia) {
         this.precioPorDia = precioPorDia;
-        this.idHabitacion = idHabitacion;
-        this.capacidad = capacidad;
     }
 
     public Float getPrecioPorDia() {
@@ -19,21 +15,7 @@ public abstract class TipoHabitacion {
         this.precioPorDia = precioPorDia;
     }
 
-    public String getIdHabitacion() {
-        return idHabitacion;
-    }
-
-    public void setIdHabitacion(String idHabitacion) {
-        this.idHabitacion = idHabitacion;
-    }
-
-    public String getCapacidad() {
-        return capacidad;
-    }
-
-    public void setCapacidad(String capacidad) {
-        this.capacidad = capacidad;
-    }
-
     public abstract float getPrecio();
+
+    public abstract String getDescripcion();
 }

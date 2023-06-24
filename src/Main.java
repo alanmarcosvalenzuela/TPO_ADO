@@ -1,7 +1,9 @@
 import Controllers.ClienteController;
+import Controllers.HabitacionController;
 import Modelos.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -37,12 +39,45 @@ public class Main {
 
         // Busco instancia cliente por id para eliminar
         Cliente clienteEliminar = clienteController.buscarClientePorId("3");
+        // Elimino la instancia de cliente
         clienteController.eliminarCliente(clienteEliminar);
 
         // Imprimir lista de clientes
         List<Cliente> clientes = clienteController.getClientes();
         for (Cliente cliente : clientes) {
             System.out.println(cliente.getIdCliente() + ": " + cliente.getNombre() + " " + cliente.getApellido());
+        }
+
+        // ---------------------------------------------------
+
+        // CASO DE USO 2: Cargar habitaciones y disponibilidad.
+
+        // Crear instancia de HabitacionController
+        HabitacionController habitacionController = new HabitacionController();
+
+        // Obtengo única instancia de tipo de habitaciones (Singleton)
+        Comun habitacionComun = Comun.getInstancia();
+        Suite habitacionSuite = Suite.getInstancia();
+
+        // Crear Habitaciones, por defecto, habilitada en false
+        habitacionController.agregarHabitacion("1", 100, 3, habitacionComun, false);
+        habitacionController.agregarHabitacion("2", 200, 2, habitacionSuite, false);
+        habitacionController.agregarHabitacion("3", 201, 2, habitacionComun, false);
+        habitacionController.agregarHabitacion("4", 301, 4, habitacionComun, false);
+
+        // Modifico habitación de encontrar id
+        habitacionController.modificarHabitacion("2", 225, 2, null, false);
+
+        // Busco instancia habitación por id para eliminar
+        Habitacion habitacionEliminar = habitacionController.buscarHabitacionPorId("3");
+        // Elimino la instancia de habitación
+        habitacionController.eliminarHabitacion(habitacionEliminar);
+
+
+        // Imprimir lista de habitaciones TODO: Otro caso de uso Reporte
+        List<Habitacion> habitaciones = habitacionController.getHabitaciones();
+        for (Habitacion habitacion : habitaciones) {
+            System.out.println("Nro Habitación: " + habitacion.getNroHabitacion() + " - Tipo: " + habitacion.getTipoHabitacion().getDescripcion());
         }
     }
 }
