@@ -2,6 +2,7 @@ package Controllers;
 
 import Modelos.Cliente;
 import Modelos.Factura;
+import Modelos.TipoContacto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,11 @@ public class ClienteController {
         clientes = new ArrayList<>();
     }
 
-    public void agregarCliente(Cliente cliente) {
+    public void agregarCliente(String idCliente, String nombre, String apellido, String dni, TipoContacto preferenciaContacto,
+                               String telefono, String email, String calle, String barrio, String provincia,
+                               String codigoPostal, String pais, List reservas) {
+        Cliente cliente = new Cliente(idCliente, nombre, apellido, dni, preferenciaContacto, telefono, email, calle, barrio,
+                provincia, codigoPostal, pais, reservas);
         clientes.add(cliente);
     }
 

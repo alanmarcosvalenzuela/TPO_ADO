@@ -80,7 +80,7 @@ public class Factura {
 
     public Float implementarPromocion(Promocion promocion) {
         // Ejemplo de cálculo de descuento:
-        Float monto = 0.0f;/* Obtener el monto de la factura */;
+        Float monto = 0.0f;/* Obtener el monto de la factura */
         Float descuento = 0.0f; /* Calcular el descuento basado en la promoción */
         Float montoConDescuento = monto - descuento;
 

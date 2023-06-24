@@ -26,7 +26,7 @@ public class ReservaController {
 
     public List<Habitacion> getHabitacionesDisponibles(LocalDate fechaInicio, LocalDate fechaFin, int cantidadPersonas, TipoHabitacion tipo, List<TipoExtra> extras) {
         List<Habitacion> habitacionesDisponibles = new ArrayList<>();
-        /* TODO
+        /* TODO: iterar habitaciones
         for (Habitacion habitacion : ) {
             if () {
                 habitacionesDisponibles.add(habitacion);

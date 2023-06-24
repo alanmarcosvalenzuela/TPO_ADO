@@ -1,45 +1,36 @@
-import Controllers.HotelController;
+import Controllers.ClienteController;
 import Modelos.*;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        HotelController hotelController = new HotelController();
 
+        // CASO DE USO 1: Cargar nuevos clientes
 
-        Huesped huesped1 = new Huesped("12212","Nombre1", "Apellido1");
-        Huesped huesped2 = new Huesped("42144","Nombre2", "Apellido2");
+        // Instancia de ClienteController
+        ClienteController clienteController = new ClienteController();
 
-        Extra extra1 = new Extra();
-        Extra extra2 = new Extra();
+        // Cliente 1
+        clienteController.agregarCliente("1", "Jorge", "Ramírez", "37989047", TipoContacto.WHATSAPP,
+                "1563687954", "jramirez@gmail.com", "Av. Rivadavia 147", "",
+                "Buenos Aires", "111", "Argentina", new ArrayList<>());
 
-        //Promocion promocion1 = new Promocion("Promocion1", 2, "0.6");
-        //Promocion promocion2 = new Promocion("Promocion2", 2,  "0.5");
+        // Cliente 2
+        clienteController.agregarCliente("2", "Luciana", "Pérez", "38975461", TipoContacto.SMS,
+                "1568787411", "lperez@gmail.com", "Av. Independencia 289", "Constitución",
+                "Buenos Aires", "123", "Argentina", new ArrayList<>());
 
-        //Pago pago = new Pago("1234567890", "Visa", 100.0);
+        // Cliente 3
+        clienteController.agregarCliente("3", "Mario", "Gutierrez", "25897879", TipoContacto.MAIL,
+                "1234567890", "john.doe@example.com", "San Martín 268", "Barrio Centro",
+                "Santa Fe", "222", "Argentina", new ArrayList<>());
 
-        //Reserva reserva = new Reserva("DEX123", LocalDate.of(2023, 7, 1), LocalDate.of(2023, 7, 5), "Carlos Paz", "das", "extras", "23", "123", "");
-
-        Hotel hotel = new Hotel("ABC123", "Hotel Ejemplo", "Dirección Ejemplo", "123456789", "hotel@example.com");
-        hotelController.agregarHotel(hotel);
-
-        hotelController.modificarHotel(hotel, "Nuevo Nombre", "Nueva Dirección", "987654321", "newhotel@example.com");
-
-        //hotelController.eliminarHotel(hotel);
-
-        List<Reserva> reservas = hotelController.obtenerReservas(hotel);
-
-
-        for (Reserva reserva : reservas) {
-            System.out.println(reserva.getIdReserva());
+        // Imprimir lista de clientes
+        List<Cliente> clientes = clienteController.getClientes();
+        for (Cliente cliente : clientes) {
+            System.out.println(cliente.getIdCliente() + ": " + cliente.getNombre() + " " + cliente.getApellido());
         }
-
-
-        System.out.println(hotel.getDireccion());
-        */
-        System.out.println("test");
     }
 }
