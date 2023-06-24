@@ -22,6 +22,31 @@ public class ClienteController {
         clientes.add(cliente);
     }
 
+    public void modificarCliente(String idCliente, String nuevoNombre, String nuevoApellido,
+                                 TipoContacto nuevaPreferenciaContacto, String nuevoTelefono,
+                                 String nuevoEmail) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getIdCliente().equals(idCliente)) {
+                if (nuevoNombre != null) {
+                    cliente.setNombre(nuevoNombre);
+                }
+                if (nuevoApellido != null) {
+                    cliente.setApellido(nuevoApellido);
+                }
+                if (nuevaPreferenciaContacto != null) {
+                    cliente.setPreferenciaContacto(nuevaPreferenciaContacto);
+                }
+                if (nuevoTelefono != null) {
+                    cliente.setTelefono(nuevoTelefono);
+                }
+                if (nuevoEmail != null) {
+                    cliente.setEmail(nuevoEmail);
+                }
+                break; // Se encontró el cliente, se termina el bucle
+            }
+        }
+    }
+
     public void eliminarCliente(Cliente cliente) {
         clientes.remove(cliente);
     }
@@ -41,7 +66,6 @@ public class ClienteController {
 
     public void realizarPago(Factura factura) {
         // Implementar lógica para realizar el pago de la factura
-        // Puedes utilizar los datos de la factura y del cliente para realizar las acciones necesarias
     }
 }
 

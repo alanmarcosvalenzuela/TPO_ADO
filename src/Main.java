@@ -24,8 +24,20 @@ public class Main {
 
         // Cliente 3
         clienteController.agregarCliente("3", "Mario", "Gutierrez", "25897879", TipoContacto.MAIL,
-                "1234567890", "john.doe@example.com", "San Martín 268", "Barrio Centro",
+                "1234567890", "mgutierrez@gmail.com", "San Martín 268", "Barrio Centro",
                 "Santa Fe", "222", "Argentina", new ArrayList<>());
+
+        // Cliente 4
+        clienteController.agregarCliente("4", "Natalia", "López", "25787879", TipoContacto.SMS,
+                "1568987447", "nlopez@gmail.com", "Lavalle 101", "Microcentro",
+                "Buenos Aires", "134", "Argentina", new ArrayList<>());
+
+        // Modifico cliente de encontrar id
+        clienteController.modificarCliente("1", "Jaime", null, null, "42479874", null);
+
+        // Busco instancia cliente por id para eliminar
+        Cliente clienteEliminar = clienteController.buscarClientePorId("3");
+        clienteController.eliminarCliente(clienteEliminar);
 
         // Imprimir lista de clientes
         List<Cliente> clientes = clienteController.getClientes();
