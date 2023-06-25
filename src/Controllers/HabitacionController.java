@@ -58,4 +58,38 @@ public class HabitacionController {
     public List<Habitacion> reporteHabitaciones() {
         return habitaciones;
     }
+
+    public List<Habitacion> getTodasLasHabitacionesConFiltro(TipoHabitacion tipoHabitacion, Integer capacidad, Float precio, Boolean disponibilidad) {
+        List<Habitacion> habitacionesFiltradas = new ArrayList<>();
+
+        for (Habitacion habitacion : habitaciones) {
+            if (cumpleConFiltro(habitacion, tipoHabitacion, capacidad, precio, disponibilidad)) {
+                habitacionesFiltradas.add(habitacion);
+            }
+        }
+
+        return habitacionesFiltradas;
+    }
+
+    private boolean cumpleConFiltro(Habitacion habitacion, TipoHabitacion tipoHabitacion, Integer capacidad, Float precio, Boolean disponibilidad) {
+        // Verificar cada criterio de filtrado
+
+        if (tipoHabitacion != null && habitacion.getTipoHabitacion() != tipoHabitacion) {
+            return false;
+        }
+
+        if (capacidad != null && habitacion.getCapacidad() < capacidad) {
+            return false;
+        }
+
+        if (precio != null && habitacion.getPrecioHabitacion() < precio) {
+            return false;
+        }
+
+        if (disponibilidad != null && habitacion.isEstaHabilitada() != disponibilidad) {
+            return false;
+        }
+
+        return true;
+    }
 }

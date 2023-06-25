@@ -44,6 +44,8 @@ public class Main {
 
         // Imprimir lista de clientes
         List<Cliente> clientes = clienteController.getClientes();
+
+        System.out.println("Lista de Clientes: ");
         for (Cliente cliente : clientes) {
             System.out.println(cliente.getIdCliente() + ": " + cliente.getNombre() + " " + cliente.getApellido());
         }
@@ -76,8 +78,27 @@ public class Main {
 
         // Imprimir lista de habitaciones TODO: Otro caso de uso Reporte
         List<Habitacion> habitaciones = habitacionController.getHabitaciones();
+
+        System.out.println("Lista de Habitaciones: ");
         for (Habitacion habitacion : habitaciones) {
             System.out.println("Nro Habitación: " + habitacion.getNroHabitacion() + " - Tipo: " + habitacion.getTipoHabitacion().getDescripcion());
+        }
+
+        // ---------------------------------------------------
+
+        // CASO DE USO 3: Buscar habitaciones según el criterio solicitado y mostrar datos completos.
+
+        // Obtengo coincidencias para las habitaciones según los filtros del parámetro. Nota: Capacidad y precio es considerado como el mínimo en la búsqueda
+        List<Habitacion> habitacionesFiltradas = habitacionController.getTodasLasHabitacionesConFiltro(null, 2, 150.f, false);
+
+        System.out.println("Las siguientes habitaciones cumplen con los filtros proporcionados: ");
+        for (Habitacion habitacion : habitacionesFiltradas) {
+            System.out.println("Número de habitación: " + habitacion.getNroHabitacion());
+            System.out.println("Tipo de habitación: " + habitacion.getTipoHabitacion().getDescripcion());
+            System.out.println("Capacidad: " + habitacion.getCapacidad());
+            System.out.println("Precio: " + habitacion.getPrecioHabitacion());
+            System.out.println("Disponibilidad: " + (habitacion.isEstaHabilitada() ? "Disponible" : "No disponible"));
+            System.out.println("------------------------");
         }
     }
 }

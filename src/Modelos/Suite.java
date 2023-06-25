@@ -29,7 +29,7 @@ public class Suite extends TipoHabitacion {
 
     @Override
     public float getPrecio() {
-        return precioSuite;
+        return precioSuite + 100.0f;
     }
 
     @Override

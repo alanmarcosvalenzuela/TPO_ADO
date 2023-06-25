@@ -28,7 +28,7 @@ public class Comun extends TipoHabitacion{
 
     @Override
     public float getPrecio() {
-        return precioComun;
+        return precioComun + 100.0f;
     }
 
     @Override
