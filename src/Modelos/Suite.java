@@ -5,14 +5,14 @@ public class Suite extends TipoHabitacion {
     public String descripcion = "Suite";
     private float precioSuite = 70.f;
 
-    private Suite(float precioPorDia) {
-        super(precioPorDia);
+    private Suite() {
+        super();
     }
 
     // Patrón Singleton
     public static Suite getInstancia() {
         if (instanciaSuite == null) {
-            instanciaSuite = new Suite(100.0f);
+            instanciaSuite = new Suite();
         }
         return instanciaSuite;
     }
@@ -29,7 +29,7 @@ public class Suite extends TipoHabitacion {
 
     @Override
     public float getPrecio() {
-        return precioSuite + 100.0f;
+        return precioSuite + this.getPrecioPorDia();
     }
 
     @Override

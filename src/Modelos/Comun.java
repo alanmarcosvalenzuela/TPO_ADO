@@ -6,14 +6,14 @@ public class Comun extends TipoHabitacion{
     private float precioComun = 30.f;
 
 
-     private Comun(float precioPorDia) {
-        super(precioPorDia);
+     private Comun() {
+        super();
     }
 
     // Patrón Singleton
     public static Comun getInstancia() {
         if (instanciaComun == null) {
-            instanciaComun = new Comun(100.0f);
+            instanciaComun = new Comun();
         }
         return instanciaComun;
     }
@@ -28,7 +28,7 @@ public class Comun extends TipoHabitacion{
 
     @Override
     public float getPrecio() {
-        return precioComun + 100.0f;
+        return precioComun + this.getPrecioPorDia();
     }
 
     @Override

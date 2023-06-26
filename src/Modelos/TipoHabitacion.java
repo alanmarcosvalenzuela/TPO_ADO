@@ -3,8 +3,8 @@ package Modelos;
 public abstract class TipoHabitacion {
     private Float precioPorDia;
 
-    public TipoHabitacion(Float precioPorDia) {
-        this.precioPorDia = precioPorDia;
+    public TipoHabitacion() {
+        this.precioPorDia = 100.f;
     }
 
     public Float getPrecioPorDia() {
