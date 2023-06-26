@@ -1,5 +1,6 @@
 package Modelos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente {
@@ -19,7 +20,7 @@ public class Cliente {
 
     public Cliente(String idCliente, String nombre, String apellido, String dni, TipoContacto preferenciaContacto,
                    String telefono, String email, String calle, String barrio, String provincia,
-                   String codigoPostal, String pais, List<Reserva> reservas) {
+                   String codigoPostal, String pais) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -32,7 +33,7 @@ public class Cliente {
         this.provincia = provincia;
         this.codigoPostal = codigoPostal;
         this.pais = pais;
-        this.reservas = reservas;
+        this.reservas = new ArrayList<>();
     }
 
     public String getIdCliente() {

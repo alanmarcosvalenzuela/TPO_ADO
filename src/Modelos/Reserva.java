@@ -2,6 +2,7 @@ package Modelos;
 
 // imports
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,15 +101,7 @@ public class Reserva {
         this.notificaciones = notificaciones;
     }
 
-    public List<Habitacion> getHabitacionesConReserva(LocalDate fechaInicio, LocalDate fechaFin) {
-        List<Habitacion> habitacionesConReserva = new ArrayList<>();
-        for (Habitacion habitacion : habitaciones) {
-            //TODO //boolean tieneReserva = habitacion.tieneReservaEnFechas(fechaInicio, fechaFin);
-            boolean tieneReserva = true;
-            if (tieneReserva) {
-                habitacionesConReserva.add(habitacion);
-            }
-        }
-        return habitacionesConReserva;
+    public int calcularDiasReserva() {
+        return (int) ChronoUnit.DAYS.between(this.fechaCheckIn, this.fechaCheckOut);
     }
 }

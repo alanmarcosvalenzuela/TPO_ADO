@@ -14,9 +14,9 @@ public class ClienteController {
 
     public void agregarCliente(String idCliente, String nombre, String apellido, String dni, TipoContacto preferenciaContacto,
                                String telefono, String email, String calle, String barrio, String provincia,
-                               String codigoPostal, String pais, List reservas) {
+                               String codigoPostal, String pais) {
         Cliente cliente = new Cliente(idCliente, nombre, apellido, dni, preferenciaContacto, telefono, email, calle, barrio,
-                provincia, codigoPostal, pais, reservas);
+                provincia, codigoPostal, pais);
         clientes.add(cliente);
     }
 

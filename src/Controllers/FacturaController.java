@@ -40,11 +40,15 @@ public class FacturaController {
         float precioConDescuento = precioBase - (precioBase * descuentoTotal);
         precioConDescuento = Math.round(precioConDescuento * 100) / 100.0f;
 
-        factura.setMonto(precioConDescuento);
+        Integer cantidadDiasReserva = reserva.calcularDiasReserva();
+
+        float precioFinal = precioConDescuento*cantidadDiasReserva;
+
+        factura.setMonto(precioFinal);
 
         facturas.add(factura);
 
-        this.enviarFactura(cliente, factura, precioConDescuento);
+        this.enviarFactura(cliente, factura, precioFinal);
 
     }
 
