@@ -93,7 +93,7 @@ public class Pago {
     }
 
     public void actualizarDisponibilidadHabitacion(Reserva reserva) {
-        if (isCheckInHoy(reserva)) {
+        if (isInRangeDias(reserva)) {
             List<Habitacion> habitacionesReserva = reserva.getHabitaciones();
             for (Habitacion habitacion : habitacionesReserva) {
                 habitacion.setEstaHabilitada(false);
@@ -101,9 +101,15 @@ public class Pago {
         }
     }
 
-    public boolean isCheckInHoy(Reserva reserva) {
+    public boolean isInRangeDias(Reserva reserva) {
         LocalDate fechaActual = LocalDate.now();
-        return reserva.getFechaCheckIn().isEqual(fechaActual);
+
+        LocalDate fechaCheckIn = reserva.getFechaCheckIn();
+        LocalDate fechaCheckOut = reserva.getFechaCheckOut();
+        if ((fechaActual.isAfter(fechaCheckIn) || fechaActual.isEqual(fechaCheckIn)) && fechaActual.isBefore(fechaCheckOut)) { // Validar si hay alguna reserva que incluya el día de hoy
+            return true;
+        }
+        return false;
     }
 
     public void cambiarEstadoPago(EstadoPago estadoPago) {
