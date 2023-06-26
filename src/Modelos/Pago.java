@@ -1,4 +1,8 @@
 package Modelos;
+
+import java.time.LocalDate;
+import java.util.List;
+
 public class Pago {
     private String idPago;
     private double monto;
@@ -7,13 +11,14 @@ public class Pago {
     private EstadoPago estadoPago;
     private AdapterPago adapterPago;
 
-    public Pago(String idPago, double monto, TipoPago metodoPago, Factura factura, EstadoPago estadoPago, AdapterPago adapterPago) {
+    public Pago(String idPago, TipoPago metodoPago, Factura factura, EstadoPago estadoPago) {
         this.idPago = idPago;
+        this.monto = 0.f;
         this.monto = monto;
         this.metodoPago = metodoPago;
         this.factura = factura;
         this.estadoPago = estadoPago;
-        this.adapterPago = adapterPago;
+        this.adapterPago = new AdapterMercadoPago();
     }
 
     public String getIdPago() {
@@ -65,7 +70,40 @@ public class Pago {
     }
 
     public void realizarPago() {
+
+        // Realizar Aviso Mercado Pago
         adapterPago.realizarPago();
+
+        // Actualizar el estado de pago a "pagado"
+        this.cambiarEstadoPago(new Pagado());
+
+        // Actualizar el monto del pago
+        this.setMonto(factura.getMonto());
+
+        Cliente cliente = this.getFactura().getCliente();
+        Reserva reserva = this.getFactura().getReserva();
+
+        System.out.println("Se ha detectado un cambio en su reserva " + cliente.getNombre() + " " + cliente.getApellido());
+        System.out.println("Reserva ID: " + reserva.getIdReserva());
+        System.out.println("Estado: " + reserva.getPago().getEstadoPago().getEstadoPago());
+        EstrategiaContacto metodoContacto = cliente.obtenerMetodoContacto();
+        metodoContacto.enviarNotificacion("Se ha generado un cambio en su reserva: " + reserva.getIdReserva() + " " + reserva.getPago().getEstadoPago().getEstadoPago());
+
+        this.actualizarDisponibilidadHabitacion(reserva);
+    }
+
+    public void actualizarDisponibilidadHabitacion(Reserva reserva) {
+        if (isCheckInHoy(reserva)) {
+            List<Habitacion> habitacionesReserva = reserva.getHabitaciones();
+            for (Habitacion habitacion : habitacionesReserva) {
+                habitacion.setEstaHabilitada(false);
+            }
+        }
+    }
+
+    public boolean isCheckInHoy(Reserva reserva) {
+        LocalDate fechaActual = LocalDate.now();
+        return reserva.getFechaCheckIn().isEqual(fechaActual);
     }
 
     public void cambiarEstadoPago(EstadoPago estadoPago) {

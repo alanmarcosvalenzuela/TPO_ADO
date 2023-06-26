@@ -5,10 +5,10 @@ public class Notificacion {
     private String mensaje;
     private EstrategiaContacto estrategiaContacto;
 
-    public Notificacion(String idNotificacion, String mensaje, EstrategiaContacto estrategiaContacto) {
+    public Notificacion(String idNotificacion, String mensaje, Cliente cliente) {
         this.idNotificacion = idNotificacion;
         this.mensaje = mensaje;
-        this.estrategiaContacto = estrategiaContacto;
+        this.estrategiaContacto = cliente.obtenerMetodoContacto();
     }
 
     public String getIdNotificacion() {

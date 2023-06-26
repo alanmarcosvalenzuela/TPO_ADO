@@ -138,4 +138,25 @@ public class Cliente {
     public void setReservas(List<Reserva> reservas) {
         this.reservas = reservas;
     }
+
+    public EstrategiaContacto obtenerMetodoContacto() {
+        TipoContacto tipoContacto = this.getPreferenciaContacto();
+        EstrategiaContacto metodoContacto;
+
+        switch (tipoContacto) {
+            case SMS:
+                metodoContacto = new SMS(this.getTelefono());
+                break;
+            case WHATSAPP:
+                metodoContacto = new Whatsapp(this.getTelefono());
+                break;
+            case MAIL:
+                metodoContacto = new Email(this.getEmail());
+                break;
+            default:
+                metodoContacto = null;
+        }
+
+        return metodoContacto;
+    }
 }

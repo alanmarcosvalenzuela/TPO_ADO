@@ -1,9 +1,11 @@
 import Controllers.ClienteController;
+import Controllers.FacturaController;
 import Controllers.HabitacionController;
+import Controllers.ReservaController;
 import Modelos.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -61,14 +63,14 @@ public class Main {
         Comun habitacionComun = Comun.getInstancia();
         Suite habitacionSuite = Suite.getInstancia();
 
-        // Crear Habitaciones, por defecto, habilitada en false
-        habitacionController.agregarHabitacion("1", 100, 3, habitacionComun, false);
-        habitacionController.agregarHabitacion("2", 200, 2, habitacionSuite, false);
-        habitacionController.agregarHabitacion("3", 201, 2, habitacionComun, false);
-        habitacionController.agregarHabitacion("4", 301, 4, habitacionComun, false);
+        // Crear Habitaciones, por defecto, habilitada en true
+        habitacionController.agregarHabitacion("1", 100, 3, habitacionComun, true);
+        habitacionController.agregarHabitacion("2", 200, 2, habitacionSuite, true);
+        habitacionController.agregarHabitacion("3", 201, 2, habitacionComun, true);
+        habitacionController.agregarHabitacion("4", 301, 4, habitacionComun, true);
 
         // Modifico habitación de encontrar id
-        habitacionController.modificarHabitacion("2", 225, 2, null, false);
+        habitacionController.modificarHabitacion("2", 225, 2, null, true);
 
         // Busco instancia habitación por id para eliminar
         Habitacion habitacionEliminar = habitacionController.buscarHabitacionPorId("3");
@@ -100,5 +102,129 @@ public class Main {
             System.out.println("Disponibilidad: " + (habitacion.isEstaHabilitada() ? "Disponible" : "No disponible"));
             System.out.println("------------------------");
         }
+
+        // ---------------------------------------------------
+
+        // CASO DE USO 4: Reservar y cancelar habitaciones presencialmente o vía web -  Enviar facturas y notificaciones a clientes.
+
+        // Crear una instancia del controlador de reserva
+        ReservaController reservaController = new ReservaController();
+
+        // Busco instancia cliente para la reserva
+        Cliente clienteReservar = clienteController.buscarClientePorId("2");
+        List<Huesped> huespedes = new ArrayList<>();
+        huespedes.add(new Huesped("11111111", "Huesped 1", "Apellido 1"));
+        huespedes.add(new Huesped("22222222", "Huesped 2", "Apellido 2"));
+        List<TipoExtra> extras = new ArrayList<>();
+        extras.add(TipoExtra.SERVICIO_DESPERTADOR);
+        extras.add(TipoExtra.TV);
+        // Busco instancia habitación para la reserva
+        Habitacion habitacionReservar = habitacionController.buscarHabitacionPorId("2");
+        List<Habitacion> habitacionesReservar = new ArrayList<>();
+        habitacionesReservar.add(habitacionReservar);
+
+        // Agregar notificaciones a la reserva
+        List<Notificacion> notificaciones = new ArrayList<>();
+        notificaciones.add(new Notificacion("1", "Se ha realizado la reserva", clienteReservar));
+
+        // Agregar la reserva utilizando el controlador
+        reservaController.agregarReserva("123456", LocalDate.of(2023, 6, 26), LocalDate.of(2024, 7, 5), clienteReservar, huespedes, extras, habitacionesReservar, notificaciones);
+
+        // Crear una instancia del controlador de factura
+        FacturaController facturaController = new FacturaController();
+
+        // Obtengo la instancia de promoción por días de anticipación
+        DiasAntes promocionDiasAntes = DiasAntes.obtenerInstanciaDiasAntes();
+
+        // Inicilizar instancia de promoción
+        Promocion promocion = new Promocion(1, "Promoción 1", promocionDiasAntes);
+        List<Promocion> promociones = new ArrayList<>();
+        promociones.add(promocion);
+
+        Reserva reservaFactura = reservaController.buscarReservaPorId("123456");
+
+        facturaController.agregarFactura("23323", LocalDate.now(), reservaFactura.getCliente(), reservaFactura, "Factura nueva", promociones);
+
+        // Buscar factura por ID
+        Factura facturaPago = facturaController.buscarFacturaPorId("23323");
+
+        // Crear instancia de pago
+        Pago pago = new Pago("1212", TipoPago.Transferencia, facturaPago, new PendienteDePago());
+        reservaFactura.setPago(pago);
+
+        String estadoPago =  reservaFactura.getPago().getEstadoPago().getEstadoPago();
+        System.out.println(estadoPago);
+
+        //reservaController.cancelarReserva(reservaFactura);
+
+
+        String estadoPago2 =  reservaFactura.getPago().getEstadoPago().getEstadoPago();
+        System.out.println(estadoPago2);
+
+        clienteController.realizarPago(facturaPago);
+
+
+        // CASO DE USO 5: Actualizar parámetros de facturación - Enviar facturas y notificaciones a clientes.
+
+        System.out.println("CASO DE USO 5 ------------------------------");
+
+        // Busco instancia cliente para la reserva
+        Cliente clienteReserva2 = clienteController.buscarClientePorId("4");
+        List<Huesped> huespedes2 = new ArrayList<>();
+        huespedes2.add(new Huesped("33333333", "Huesped 3", "Apellido 3"));
+        huespedes2.add(new Huesped("44444444", "Huesped 4", "Apellido 4"));
+        List<TipoExtra> extras2 = new ArrayList<>();
+        extras2.add(TipoExtra.SERVICIO_DESPERTADOR);
+        extras2.add(TipoExtra.TV);
+        extras2.add(TipoExtra.MINIBAR);
+        extras2.add(TipoExtra.INTERNET);
+        // Busco instancia habitación para la reserva
+        Habitacion habitacionReserva2 = habitacionController.buscarHabitacionPorId("4");
+        List<Habitacion> habitacionesReserva2 = new ArrayList<>();
+        habitacionesReserva2.add(habitacionReserva2);
+
+        // Agregar notificaciones a la reserva
+        List<Notificacion> notificaciones2 = new ArrayList<>();
+        notificaciones2.add(new Notificacion("2", "Se ha realizado la reserva", clienteReserva2));
+
+        // Agregar la reserva utilizando el controlador
+        reservaController.agregarReserva("7891011", LocalDate.of(2024, 6, 25), LocalDate.of(2024, 7, 5), clienteReservar, huespedes2, extras2, habitacionesReserva2, notificaciones2);
+
+        // Obtengo la instancia de promoción por días de anticipación
+        DiasAntes promocionDiasAntes2 = DiasAntes.obtenerInstanciaDiasAntes();
+
+        // Inicilizar instancia de promoción
+        Promocion promocion2 = new Promocion(1, "Promoción 1", promocionDiasAntes2);
+        List<Promocion> promociones2 = new ArrayList<>();
+        promociones2.add(promocion2);
+
+        Reserva reservaFactura2 = reservaController.buscarReservaPorId("7891011");
+
+        facturaController.agregarFactura("58988", LocalDate.now(), reservaFactura2.getCliente(), reservaFactura2, "Factura nueva 2", promociones2);
+        Factura facturaPago2 = facturaController.buscarFacturaPorId("58988");
+        Pago pago2 = new Pago("1212", TipoPago.TarjetaDeCredito, facturaPago2, new PendienteDePago());
+        reservaFactura2.setPago(pago);
+
+
+        System.out.println("Factura antes de actualizar datos de promocion: ");
+        System.out.println("ID : " + facturaPago2.getIdFactura() + " - Descripcion: " + facturaPago2.getDescripcion() + " - Monto: $" + facturaPago2.getMonto());
+
+        // Nuevos valor de descuento
+        promocionDiasAntes2.setDescuentoAlMenos15Dias(0.30f);
+        promocionDiasAntes2.setDescuentoMas60Dias(0.60f);
+
+        facturaController.agregarFactura("58989", LocalDate.now(), reservaFactura2.getCliente(), reservaFactura2, "Factura nueva 3", promociones2);
+        Factura facturaPago3 = facturaController.buscarFacturaPorId("58989");
+
+        System.out.println("Factura después de actualizar datos de promocion: ");
+        System.out.println("ID : " + facturaPago3.getIdFactura() + " - Descripcion: " + facturaPago3.getDescripcion() + " - Monto: $" + facturaPago3.getMonto());
+
+
+        // CASO DE USO 6: Generar un reporte del estado de las habitaciones del hotel (reservadas, disponibles).
+
+        // Reporte de Habitaciones
+        habitacionController.reporteHabitaciones();
+        // Reporte de Reservas
+        reservaController.reporteReservas();
     }
 }

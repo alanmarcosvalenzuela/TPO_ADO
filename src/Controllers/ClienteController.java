@@ -1,8 +1,6 @@
 package Controllers;
 
-import Modelos.Cliente;
-import Modelos.Factura;
-import Modelos.TipoContacto;
+import Modelos.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +63,8 @@ public class ClienteController {
     }
 
     public void realizarPago(Factura factura) {
-        // Implementar lógica para realizar el pago de la factura
+        Pago instanciaPago = factura.getReserva().getPago();
+        instanciaPago.realizarPago();
     }
 }
 

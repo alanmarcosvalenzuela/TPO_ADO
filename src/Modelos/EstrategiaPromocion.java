@@ -1,5 +1,5 @@
 package Modelos;
 
 public interface EstrategiaPromocion {
-    Float implementarPromocion();
+    Float implementarPromocion(Integer diasAnticipacion);
 }

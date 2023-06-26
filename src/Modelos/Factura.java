@@ -6,19 +6,27 @@ import java.util.List;
 public class Factura {
     private String idFactura;
     private LocalDate fechaEmision;
+    private double monto;
     private Cliente cliente;
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+
     private Reserva reserva;
     private String descripcion;
-    private Pago pago;
     private List<Promocion> promociones;
 
-    public Factura(String idFactura, LocalDate fechaEmision, Cliente cliente, Reserva reserva, String descripcion, Pago pago, List<Promocion> promociones) {
+    public Factura(String idFactura, LocalDate fechaEmision, Cliente cliente, Reserva reserva, String descripcion, List<Promocion> promociones) {
         this.idFactura = idFactura;
         this.fechaEmision = fechaEmision;
         this.cliente = cliente;
         this.reserva = reserva;
         this.descripcion = descripcion;
-        this.pago = pago;
         this.promociones = promociones;
     }
 
@@ -60,14 +68,6 @@ public class Factura {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public Pago getPago() {
-        return pago;
-    }
-
-    public void setPago(Pago pago) {
-        this.pago = pago;
     }
 
     public List<Promocion> getPromociones() {

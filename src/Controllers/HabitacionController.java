@@ -55,8 +55,24 @@ public class HabitacionController {
         return habitaciones;
     }
 
-    public List<Habitacion> reporteHabitaciones() {
-        return habitaciones;
+    public void reporteHabitaciones() {
+
+        List<Habitacion> habitaciones = this.getHabitaciones();
+
+        System.out.println("-------- REPORTE DE HABITACIONES --------");
+
+        for (Habitacion habitacion : habitaciones){
+            System.out.println("ID Habitación: " + habitacion.getIdHabitacion());
+            System.out.println("Nro Habitación: " + habitacion.getNroHabitacion());
+            System.out.println("Tipo :" + habitacion.getTipoHabitacion().getDescripcion());
+            System.out.println("Capacidad: " + habitacion.getCapacidad());
+            if (habitacion.isEstaHabilitada()) {
+                System.out.println("DISPONIBLE");
+            } else {
+                System.out.println("NO DISPONIBLE");
+            }
+            System.out.println();
+        }
     }
 
     public List<Habitacion> getTodasLasHabitacionesConFiltro(TipoHabitacion tipoHabitacion, Integer capacidad, Float precio, Boolean disponibilidad) {
